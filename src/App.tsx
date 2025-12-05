@@ -8,10 +8,10 @@ import { Menu, X, Star, Clock, MapPin, Calendar, Users, Award, TrendingUp, Heart
 // ---------------------------------------------------------
 
 // Melli tkon 3ndek tswar f dossier 'assets', rj3i hna w diri: import logo from './assets/ton-image.png'
-const logoImage = "src/assets/logo.png"; 
-const unicefLogo = "src/assets/unicef-seeklogo.png"; 
-const logoWhite = "src/assets/logo.png"; // Exemple Placeholder
-const heroBackground = "src/assets/sli.gif"; 
+const logoImage = 'src/assets/logo.png'; 
+const unicefLogo = 'src/assets/unicef-seeklogo.png'; 
+const logoWhite = 'src/assets/logo.png'; // Exemple Placeholder
+const heroBackground = 'src/assets/sli.gif'; 
 
 // ---------------------------------------------------------
 
@@ -254,7 +254,7 @@ export default function App() {
                   transition={{ duration: 4, repeat: Infinity }}
                 >
                   <img 
-                    src={logoWhite}
+                    src='src\assets\logo.png'
                     alt="Festival des Lys d'Or Logo" 
                     className="w-full h-full object-contain p-2"
                   />
@@ -394,7 +394,7 @@ export default function App() {
         {/* Background animé */}
         <div className="absolute inset-0">
           <img 
-            src={heroBackground}
+            src='src/assets/sli.gif'
             alt="Hero Background"
             className="w-full h-full object-cover"
           />
