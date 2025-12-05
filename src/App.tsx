@@ -4,14 +4,27 @@ import { motion, useScroll, useTransform, useInView } from 'motion/react';
 import { Menu, X, Star, Clock, MapPin, Calendar, Users, Award, TrendingUp, Heart, Mail, Phone, Instagram, Facebook, Linkedin, ChevronDown, Sparkles, Crown, Target, Zap, Gift, Trophy, Check, ArrowRight, MousePointer2 } from 'lucide-react';
 
 // ---------------------------------------------------------
-// ✅ PARTIE CORRIGÉE : IMAGES REMPLACÉES PAR DES LIENS WEB
+// ✅ IMPORTATION DES IMAGES LOCALES (S7I7A)
 // ---------------------------------------------------------
 
-// Melli tkon 3ndek tswar f dossier 'assets', rj3i hna w diri: import logo from './assets/ton-image.png'
-const logoImage = 'src/assets/logo.png'; 
-const unicefLogo = 'src/assets/unicef-seeklogo.png'; 
-const logoWhite = 'src/assets/logo.png'; // Exemple Placeholder
-const heroBackground = 'src/assets/sli.gif'; 
+// 1. Logo
+import imgLogo from './assets/logo.png';
+
+// 2. UNICEF (Smiha unicef.png f dossier)
+import imgUnicef from './assets/unicef.png'; 
+
+// 3. HERO BACKGROUND (GIF)
+import imgHeroBg from './assets/sli.gif';
+
+// 4. Artistes (Smihom chorale.png w harmonia.png f dossier)
+import imgChorale from './assets/chorale.png';
+import imgHarmonia from './assets/harmonia.png';
+
+// Variables
+const logoImage = imgLogo;
+const unicefLogo = imgUnicef;
+const logoWhite = imgLogo; 
+const heroBackground = imgHeroBg; // ✅ Hana ztha hna
 
 // ---------------------------------------------------------
 
@@ -24,7 +37,7 @@ function TikTokIcon({ className }: { className?: string; }) {
   );
 }
 
-// Simple Image Component (Remplacement de ImageWithFallback pour éviter les erreurs)
+// Simple Image Component
 const SimpleImage = ({ src, alt, className }: { src: string, alt: string, className?: string }) => (
   <img src={src} alt={alt} className={className} onError={(e) => { e.currentTarget.src = "https://placehold.co/400x400?text=Image+Introuvable"; }} />
 );
@@ -80,7 +93,8 @@ export default function App() {
       name: "Chorale des Anges d'Or",
       role: "Performance Chorale",
       category: "Musique",
-      image: "src/assets/_Performance_Chorale_Musique_Chorale_des_Anges_dO.png",
+      // ✅ Image Importée
+      image: imgChorale,
       quote: "La musique élève l'âme et inspire l'action",
       achievements: ["Prix Chorale 2024", "Tournée Internationale", "50+ Concerts"],
       social: { instagram: "https://www.instagram.com/", facebook: "https://web.facebook.com/" }
@@ -98,7 +112,8 @@ export default function App() {
       name: "Ensemble Harmonia",
       role: "Performance Chorale",
       category: "Musique",
-      image: "src/assets/Ensemble_Harmonia.png",
+      // ✅ Image Importée
+      image: imgHarmonia,
       quote: "Ensemble, créons une symphonie d'inspiration",
       achievements: ["Grammy Nominated", "World Tour", "Platinum Album"],
       social: { instagram: "https://www.instagram.com/", facebook: "https://web.facebook.com/" }
@@ -254,7 +269,7 @@ export default function App() {
                   transition={{ duration: 4, repeat: Infinity }}
                 >
                   <img 
-                    src='src\assets\logo.png'
+                    src={logoWhite}
                     alt="Festival des Lys d'Or Logo" 
                     className="w-full h-full object-contain p-2"
                   />
@@ -394,7 +409,7 @@ export default function App() {
         {/* Background animé */}
         <div className="absolute inset-0">
           <img 
-            src='src/assets/sli.gif'
+            src={heroBackground}
             alt="Hero Background"
             className="w-full h-full object-cover"
           />
@@ -1396,242 +1411,5 @@ export default function App() {
         </div>
       </footer>
     </div>
-  );
-}
-
-// Composant pour les sections animées au scroll
-function AnimatedSection({ children }: { children: React.ReactNode }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ y: 50, opacity: 0 }}
-      animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-// Composant Counter animé
-function Counter({ value, suffix = '' }: { value: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (isInView) {
-      let start = 0;
-      const end = value;
-      const duration = 2000;
-      const increment = end / (duration / 16);
-
-      const timer = setInterval(() => {
-        start += increment;
-        if (start >= end) {
-          setCount(end);
-          clearInterval(timer);
-        } else {
-          setCount(Math.floor(start));
-        }
-      }, 16);
-
-      return () => clearInterval(timer);
-    }
-  }, [isInView, value]);
-
-  return (
-    <div ref={ref} className="text-4xl md:text-5xl bg-gradient-to-r from-[#8B3A3A] to-[#D4A574] bg-clip-text text-transparent">
-      {count}{suffix}
-    </div>
-  );
-}
-
-// Composant Artist Card avec tous les effets
-function ArtistCard({ artist, index }: { artist: any; index: number }) {
-  const [showModal, setShowModal] = useState(false);
-
-  return (
-    <>
-      <motion.div
-        className="relative group cursor-pointer"
-        initial={{ y: 50, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ delay: index * 0.1 }}
-        viewport={{ once: true }}
-        onClick={() => setShowModal(true)}
-      >
-        <div className="relative h-96 rounded-3xl overflow-hidden">
-          {/* Image avec zoom parallax */}
-          <motion.div
-            className="absolute inset-0"
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.6 }}
-          >
-            <SimpleImage 
-              src={artist.image} 
-              alt={artist.name}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-
-          {/* Overlay gradient animé */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"
-            whileHover={{ opacity: 0.8 }}
-          />
-
-          {/* Effet de scan qui traverse l'image */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-transparent via-[#8B3A3A]/50 to-transparent h-32"
-            animate={{ y: ['-100%', '300%'] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          />
-
-          {/* Particules qui montent */}
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-[#8B3A3A] rounded-full"
-              style={{
-                left: `${20 + i * 10}%`,
-                bottom: '0'
-              }}
-              animate={{
-                y: [0, -400],
-                opacity: [0, 1, 0],
-                scale: [0, 1, 0]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: i * 0.3,
-                ease: "easeOut"
-              }}
-            />
-          ))}
-
-          {/* Badge catégorie animé */}
-          <motion.div
-            className="absolute top-4 left-4 px-4 py-2 bg-[#8B3A3A]/80 backdrop-blur-sm rounded-full flex items-center gap-2 border border-[#D4A574]/30"
-            whileHover={{ scale: 1.1 }}
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            >
-              <Star className="w-4 h-4 text-[#D4A574]" />
-            </motion.div>
-            <span className="text-xs">{artist.category}</span>
-          </motion.div>
-
-          {/* Contenu */}
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm px-3 py-1 bg-[#D4A574]/20 backdrop-blur-sm rounded-full border border-[#D4A574]/30">
-                {artist.role}
-              </span>
-            </div>
-            <h3 className="text-2xl mb-2">{artist.name}</h3>
-            <p className="text-sm text-gray-300 italic mb-3">"{artist.quote}"</p>
-            
-            {/* Achievements Pills */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {artist.achievements.map((achievement: string, i: number) => (
-                <motion.span
-                  key={i}
-                  className="text-xs px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full border border-[#8B3A3A]/30"
-                  whileHover={{ scale: 1.1, borderColor: '#D4A574' }}
-                >
-                  {achievement}
-                </motion.span>
-              ))}
-            </div>
-
-            {/* Social Icons */}
-            <div className="flex gap-3">
-              {Object.entries(artist.social).map(([platform, link]) => {
-                const Icon = platform === 'instagram' ? Instagram : platform === 'linkedin' ? Linkedin : Facebook;
-                return (
-                  <motion.a
-                    key={platform}
-                    href={link as string}
-                    className="w-8 h-8 rounded-full bg-[#8B3A3A]/30 backdrop-blur-sm flex items-center justify-center border border-[#8B3A3A]/50 hover:border-[#D4A574]"
-                    whileHover={{ scale: 1.2, rotate: 360 }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Icon className="w-4 h-4" />
-                  </motion.a>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Bouton "En savoir plus" pulsant */}
-          <motion.div
-            className="absolute bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-[#8B3A3A] to-[#D4A574] flex items-center justify-center"
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <MousePointer2 className="w-5 h-5" />
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Modal */}
-      {showModal && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={() => setShowModal(false)}
-        >
-          <motion.div
-            className="max-w-2xl w-full bg-gradient-to-br from-[#8B3A3A]/20 to-black border border-[#8B3A3A]/30 rounded-3xl p-8 backdrop-blur-sm"
-            initial={{ scale: 0.8, y: 50 }}
-            animate={{ scale: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 200 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-start gap-6">
-              <div className="w-32 h-32 rounded-2xl overflow-hidden flex-shrink-0">
-                <SimpleImage src={artist.image} alt={artist.name} className="w-full h-full object-cover" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm px-3 py-1 bg-[#D4A574]/20 rounded-full border border-[#D4A574]/30">
-                    {artist.role}
-                  </span>
-                  <span className="text-sm px-3 py-1 bg-[#8B3A3A]/20 rounded-full border border-[#8B3A3A]/30">
-                    {artist.category}
-                  </span>
-                </div>
-                <h2 className="text-3xl mb-2">{artist.name}</h2>
-                <p className="text-gray-300 italic mb-4">"{artist.quote}"</p>
-                <div className="space-y-2">
-                  {artist.achievements.map((achievement: string, i: number) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <Trophy className="w-4 h-4 text-[#D4A574]" />
-                      <span className="text-sm">{achievement}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <motion.button
-              className="mt-6 w-full py-3 bg-gradient-to-r from-[#8B3A3A] to-[#6B2A2A] rounded-full"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setShowModal(false)}
-            >
-              Fermer
-            </motion.button>
-          </motion.div>
-        </motion.div>
-      )}
-    </>
   );
 }
