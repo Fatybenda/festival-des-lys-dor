@@ -1,17 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
-// Ila tel3at lik error f 'motion/react', bedliha b 'framer-motion'
+// Ila tla3 error f 'motion/react', reddiha 'framer-motion'
 import { motion, useScroll, useTransform, useInView } from 'motion/react'; 
 import { Menu, X, Star, Clock, MapPin, Calendar, Users, Award, TrendingUp, Heart, Mail, Phone, Instagram, Facebook, Linkedin, ChevronDown, Sparkles, Crown, Target, Zap, Gift, Trophy, Check, ArrowRight, MousePointer2 } from 'lucide-react';
 
 // ---------------------------------------------------------
-// ✅ PARTIE CORRIGÉE : IMAGES REMPLACÉES PAR DES LIENS WEB
+// ✅ TAS7I7 L-IMAGES (ALL ONLINE URLS)
 // ---------------------------------------------------------
 
-// Melli tkon 3ndek tswar f dossier 'assets', rj3i hna w diri: import logo from './assets/ton-image.png'
-const logoImage = "src/assets/logo.png"; 
-const unicefLogo = "src/assets/unicef-seeklogo.png"; 
-const logoWhite = "src/assets/logo.png"; // Exemple Placeholder
-const heroBackground = "src/assets/sli.gif"; 
+// Logo (Crown Gold)
+const logoImage = "https://cdn-icons-png.flaticon.com/512/5968/5968863.png"; 
+// Logo UNICEF (Online)
+const unicefLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Unicef_logo.png/800px-Unicef_logo.png"; 
+// Logo White (Crown)
+const logoWhite = "https://cdn-icons-png.flaticon.com/512/5968/5968863.png"; 
+// Background Hero (Luxe Dark Red)
+const heroBackground = "https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=1920&auto=format&fit=crop"; 
 
 // ---------------------------------------------------------
 
@@ -24,7 +27,7 @@ function TikTokIcon({ className }: { className?: string; }) {
   );
 }
 
-// Simple Image Component (Remplacement de ImageWithFallback pour éviter les erreurs)
+// Simple Image Component (Robust)
 const SimpleImage = ({ src, alt, className }: { src: string, alt: string, className?: string }) => (
   <img src={src} alt={alt} className={className} onError={(e) => { e.currentTarget.src = "https://placehold.co/400x400?text=Image+Introuvable"; }} />
 );
@@ -80,7 +83,8 @@ export default function App() {
       name: "Chorale des Anges d'Or",
       role: "Performance Chorale",
       category: "Musique",
-      image: "src/assets/_Performance_Chorale_Musique_Chorale_des_Anges_dO.png",
+      // ✅ BDDLT HNA (Image Chorale)
+      image: "https://images.unsplash.com/photo-1525926477800-7a3be5800d1c?q=80&w=1080&auto=format&fit=crop",
       quote: "La musique élève l'âme et inspire l'action",
       achievements: ["Prix Chorale 2024", "Tournée Internationale", "50+ Concerts"],
       social: { instagram: "https://www.instagram.com/", facebook: "https://web.facebook.com/" }
@@ -98,7 +102,8 @@ export default function App() {
       name: "Ensemble Harmonia",
       role: "Performance Chorale",
       category: "Musique",
-      image: "src/assets/Ensemble_Harmonia.png",
+      // ✅ BDDLT HNA (Image Orchestre)
+      image: "https://images.unsplash.com/photo-1465847899078-b29edd5b714b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       quote: "Ensemble, créons une symphonie d'inspiration",
       achievements: ["Grammy Nominated", "World Tour", "Platinum Album"],
       social: { instagram: "https://www.instagram.com/", facebook: "https://web.facebook.com/" }
